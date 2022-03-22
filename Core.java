@@ -222,7 +222,11 @@ public class Core
                     text.append(line);
                     text.append('\n');
                 }
-                TextFile doc = new TextFile(text.toString(), menuLine.userDisplayString, menuLine.selector, menuLine.host, menuLine.port);
+                TextFile doc = new TextFile(text.toString(),
+                                            menuLine.userDisplayString,
+                                            menuLine.selector,
+                                            menuLine.host,
+                                            menuLine.port);
 
                 if (!this.reseted)
                 {
