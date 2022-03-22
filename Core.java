@@ -59,7 +59,7 @@ public class Core
                         break;
                     }
 
-                    if (line.length() <= 0)
+                    if (line.length() == 0)
                     {
                         menu.error = true;
                         menu.errorText = "There is line with zero length";
@@ -75,31 +75,112 @@ public class Core
                         }
                     }
 
-                    if (line.length() > 0 && line.charAt(0) == 'i')
+                    switch (line.charAt(0))
                     {
-                        if (line.indexOf(9) != -1)  // Unicode 9 is TAB character
+                        case 'i':
                         {
-                            line = line.substring(1, line.indexOf(9));
+                            if (line.indexOf(9) != -1)  // Unicode 9 is TAB character
+                            {
+                                line = line.substring(1, line.indexOf(9));
+                            }
+                            else
+                            {
+                                line = line.substring(1, -1);
+                            }
+                            MenuLine newMenuLine = new MenuLine(ItemType.INFO , line, "", "", -1);
+                            menu.addItem(newMenuLine);
+                            break;
                         }
-                        else
+                        case '0':
                         {
-                            line = line.substring(1, line.length() - 1);
+                            // This is textfile
+                            break;
                         }
-                        MenuLine newMenuLine = new MenuLine(ItemType.INFO , line, "", "", -1);
-                        menu.addItem(newMenuLine);
-                    }
-                    else
-                    {
-                        MenuLine newMenuLine = new MenuLine(ItemType.MENU, line, "selector", "tcpbin.org", 4242);
-                        menu.addItem(newMenuLine);
-                        if (!this.reseted)
+                        case '1':
                         {
-                            this.requestInProgres = false;
-                            this.stack.add(menu);
+                            // Strip type annotation
+                            line = line.substring(1, -1);
+
+                            String[] parts = line.split("\t");
+
+                            MenuLine newMenuLine = new MenuLine(ItemType.MENU,
+                                                                parts[0],
+                                                                parts.length > 1 ? parts[1] : "",
+                                                                parts.length > 2 ? parts[2] : "",
+                                                                parts.length > 3 ? Integer.parseInt(parts[3]) : 70);
+                            // TODO: Think waht to do when len parts < 4
+
+                            menu.addItem(newMenuLine);
+                            break;
+                        }
+                        case '2':
+                        {
+                            // CSO phonebook
+                            break;
+                        }
+                        case '3':
+                        {
+                            // error
+                            break;
+                        }
+                        case '4':
+                        {
+                            // BinHexed Macintosh file
+                            break;
+                        }
+                        case '5':
+                        {
+                            // DOS binary archive of some sort
+                            break;
+                        }
+                        case '6':
+                        {
+                            // UNIX uuencoded file
+                            break;
+                        }
+                        case '7':
+                        {
+                            // index-search server 
+                            break;
+                        }
+                        case '8':
+                        {
+                            // points to a text-based telnet session
+                            break;
+                        }
+                        case '9':
+                        {
+                            // binary file
+                            break;
+                        }
+                        case '+':
+                        {
+                            // redundant server
+                            break;
+                        }
+                        case 'T':
+                        {
+                            // ext-based tn3270 session
+                            break;
+                        }
+                        case 'g':
+                        {
+                            // gif
+                            break;
+                        }
+                        case 'I':
+                        {
+                            // other image
+                            break;
                         }
                     }
                 }
 
+                if (!this.reseted)
+                {
+                    this.requestInProgres = false;
+                    this.stack.add(menu);
+                }
             }
         }
         catch(Exception e)
@@ -107,6 +188,5 @@ public class Core
             this.requestInProgres = false;
             System.out.print(e);
         }
-        
     }
 }

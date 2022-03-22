@@ -15,7 +15,7 @@ public class Main
         View view = core.getCurrentView();
         if (view.type == ItemType.MENU)
         {
-            for (int i = 0; i < ((Menu)view).lines.size() - 1; i++)
+            for (int i = 0; i < ((Menu)view).lines.size(); i++)
             {
                 System.out.println(((Menu)view).lines.get(i).userDisplayString);
             }
