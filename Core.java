@@ -85,7 +85,7 @@ public class Core
                             }
                             else
                             {
-                                line = line.substring(1, -1);
+                                line = line.substring(1, line.length());
                             }
                             MenuLine newMenuLine = new MenuLine(ItemType.INFO , line, "", "", -1);
                             menu.addItem(newMenuLine);
@@ -99,7 +99,7 @@ public class Core
                         case '1':
                         {
                             // Strip type annotation
-                            line = line.substring(1, -1);
+                            line = line.substring(1, line.length());
 
                             String[] parts = line.split("\t");
 

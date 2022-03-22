@@ -17,7 +17,20 @@ public class Main
         {
             for (int i = 0; i < ((Menu)view).lines.size(); i++)
             {
-                System.out.println(((Menu)view).lines.get(i).userDisplayString);
+                MenuLine line = ((Menu)view).lines.get(i);
+
+                switch (line.type)
+                {
+                    case INFO:
+                    {
+                        System.out.println(line.userDisplayString);
+                        break;
+                    }
+                    case MENU:
+                    {
+                        System.out.println("🗀 " + line.userDisplayString);
+                    }
+                }
             }
         }
     }
